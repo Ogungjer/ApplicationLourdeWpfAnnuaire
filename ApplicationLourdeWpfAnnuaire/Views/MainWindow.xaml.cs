@@ -40,7 +40,7 @@ namespace ApplicationLourdeWpfAnnuaire
                     // Affiche l'interface du mode admin
                     VisitorMode.Visibility = Visibility.Collapsed;
                     AdminMode.Visibility = Visibility.Visible;
-                }
+                } 
                 else
                 {
                     MessageBox.Show("Nom d'utilisateur ou mot de passe incorrect.");
@@ -52,6 +52,13 @@ namespace ApplicationLourdeWpfAnnuaire
         {
             VisitorMode.Visibility = Visibility.Visible;
             AdminMode.Visibility = Visibility.Collapsed;
+        }
+
+        private void ManageSiteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Affiche une fenêtre de gestion des sites
+            var SiteManagementWindow = new SiteManagementWindow();
+            SiteManagementWindow.Show();
         }
 
         // Vérification sécurisée du nom d'utilisateur et du mot de passe dans la base de données

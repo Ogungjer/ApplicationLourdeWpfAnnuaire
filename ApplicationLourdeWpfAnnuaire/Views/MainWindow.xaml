@@ -25,11 +25,16 @@
 
         <!-- Interface pour le mode admin -->
         <StackPanel Name="AdminMode" HorizontalAlignment="Center" VerticalAlignment="Center"  Visibility="Collapsed">
-            <TextBlock Text="Bienvenue sur le mode admin sur l'annuaire de OGROUP" FontSize="16" TextAlignment="Center" />
+            <TextBlock Text="Bienvenue sur le mode admin sur l'annuaire de OGROUP" FontWeight="Bold" FontSize="16" TextAlignment="Center" />
             <Button Content="Toggle visitor Mode" HorizontalAlignment="Right" 
                     VerticalAlignment="Top" Margin="10,10,0,10" 
                     Click="VisitorButton_Click"  
                     Background="#FF007ACC" Foreground="White"/>
+            <Button Content="Manage Site" HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" Margin="10,10,0,10" 
+                    Click="ManageSiteButton_Click"  
+                    Background="#FF007ACC" Foreground="White"/>
+
         </StackPanel>
     </Grid>
 </Window>
