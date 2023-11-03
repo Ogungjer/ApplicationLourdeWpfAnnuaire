@@ -41,10 +41,10 @@ namespace ApplicationLourdeWpfAnnuaire.Views
                 EditSiteViewModel editSiteViewModel = new EditSiteViewModel(selectedSite);
                 EditSiteWindow editSiteWindow = new EditSiteWindow(editSiteViewModel);
 
-                // Écoutez l'événement Closed pour mettre à jour la liste après la fermeture de la fenêtre d'édition.
+                // Écoute l'événement Closed pour mettre à jour la liste après la fermeture de la fenêtre d'édition.
                 editSiteWindow.Closed += (s, args) =>
                 {
-                    // Mettez à jour la liste des sites après la fermeture de la fenêtre d'édition.
+                    // Mets à jour la liste des sites après la fermeture de la fenêtre d'édition.
                     MaDataGrid.Items.Refresh();
                 };
 
@@ -64,7 +64,7 @@ namespace ApplicationLourdeWpfAnnuaire.Views
             {
                 SiteViewModel viewModel = (SiteViewModel)DataContext;
 
-                // Appelez la méthode de suppression de votre ViewModel en passant le site à supprimer.
+                // Appele la méthode de suppression de la ViewModel en passant le site à supprimer.
                 viewModel.DeleteSite(selectedSite);
             }
             else
