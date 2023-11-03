@@ -16,62 +16,62 @@ using ApplicationLourdeWpfAnnuaire.Views;
 
 namespace ApplicationLourdeWpfAnnuaire.ViewModels
 {
-    public class SiteViewModel : ViewModelBase
+    public class DepartementViewModel : ViewModelBase
     {
-        private ObservableCollection<Site> _siteList;
-        public ObservableCollection<Site> SiteList
+        private ObservableCollection<Departement> _departementList;
+        public ObservableCollection<Departement> DepartementList
         {
-            get { return _siteList; }
+            get { return _departementList; }
             set
             {
-                _siteList = value;
-                OnPropertyChanged(nameof(SiteList));
+                _departementList = value;
+                OnPropertyChanged(nameof(DepartementList));
             }
         }
 
         // Propriété pour accéder au texte du TextBox
-        private string _newSiteVille;
-        public string NewSiteVille
+        private string _newDepartementNom;
+        public string NewDepartementNom
         {
-            get { return _newSiteVille; }
+            get { return _newDepartementNom; }
             set
             {
-                _newSiteVille = value;
-                OnPropertyChanged(nameof(NewSiteVille));
+                _newDepartementNom = value;
+                OnPropertyChanged(nameof(NewDepartementNom));
             }
         }
 
-        public ICommand AddSiteCommand { get; set; }
+        public ICommand AddDepartementCommand { get; set; }
 
-        public SiteViewModel()
+        public DepartementViewModel()
         {
-            SiteList = new ObservableCollection<Site>(); 
+            DepartementList = new ObservableCollection<Departement>();
 
-            LoadSites();
+            LoadDepartement();
 
-            AddSiteCommand = new RelayCommand(AddSite);
-            
+            AddDepartementCommand = new RelayCommand(AddDepartement);
+
         }
 
-        private async void LoadSites()
+        private async void LoadDepartement()
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-      
-                    string apiUrl = "https://localhost:7252/api/Site";
+
+                    string apiUrl = "https://localhost:7252/api/Departement";
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
                         string result = await response.Content.ReadAsStringAsync();
-                        List<Site> sites = JsonConvert.DeserializeObject<List<Site>>(result);
+                        List<Departement> departements = JsonConvert.DeserializeObject<List<Departement>>(result);
 
-                        // Mets à jour la collection SiteList avec les données chargées
-                        foreach (var site in sites)
+                        // Mets à jour la collection DepartementList avec les données chargées
+                        foreach (var departement in departements)
                         {
-                            SiteList.Add(site);
+                            DepartementList.Add(departement);
                         }
                     }
                     else
@@ -81,41 +81,41 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                 }
                 catch (Exception ex)
                 {
-                   ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
+                    ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
                 }
             }
         }
 
-        private async Task AddSite()
+        private async Task AddDepartement()
         {
             try
             {
-                // Crée un nouvel objet Site avec les données de la TextBox
-                string newVille = NewSiteVille;
-                Site newSite = new Site { Ville = newVille };
+                // Crée un nouvel objet Departement avec les données de la TextBox
+                string newDepartementNom = NewDepartementNom;
+                Departement newDepartement = new Departement { NomDepartement = newDepartementNom };
 
-                // Envoie un nouvel objet Site à l'API pour l'ajout
+                // Envoie un nouvel objet Departement à l'API pour l'ajout
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7252/api/Site"; 
-                    string siteJson = JsonConvert.SerializeObject(newSite);
-                    StringContent content = new StringContent(siteJson, Encoding.UTF8, "application/json");
+                    string apiUrl = "https://localhost:7252/api/Departement";
+                    string departementJson = JsonConvert.SerializeObject(newDepartement);
+                    StringContent content = new StringContent(departementJson, Encoding.UTF8, "application/json");
 
                     HttpResponseMessage response = await client.PostAsync(apiUrl, content);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        // Si l'ajout à l'API est réussi, ajoute également le site à la collection
-                        SiteList.Add(newSite);
+                        // Si l'ajout à l'API est réussi, ajoute également le departement à la collection
+                        DepartementList.Add(newDepartement);
                     }
                     else
                     {
-                        ShowErrorMessage("Impossible d'ajouter le site à l'API.");
+                        ShowErrorMessage("Impossible d'ajouter le departement à l'API.");
                     }
                 }
 
                 // Efface le champ de saisie après l'ajout
-                NewSiteVille = "";
+                NewDepartementNom = "";
             }
             catch (Exception ex)
             {
@@ -123,24 +123,24 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             }
         }
 
-        public async Task DeleteSite(Site siteToDelete)
+        public async Task DeleteDepartement(Departement departementToDelete)
         {
             try
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string apiUrl = "https://localhost:7252/api/Site/" + siteToDelete.SiteID;
+                    string apiUrl = "https://localhost:7252/api/Departement/" + departementToDelete.DepartementID;
 
                     HttpResponseMessage response = await client.DeleteAsync(apiUrl);
 
                     if (response.IsSuccessStatusCode)
                     {
-                        SiteList.Remove(siteToDelete);
-                        ShowSuccessMessage("Suppression du site réussie.");
+                        DepartementList.Remove(departementToDelete);
+                        ShowSuccessMessage("Suppression du departement réussie.");
                     }
                     else
                     {
-                        ShowErrorMessage("Impossible de supprimer le site de l'API.");
+                        ShowErrorMessage("Impossible de supprimer le departement de l'API.");
                     }
                 }
             }

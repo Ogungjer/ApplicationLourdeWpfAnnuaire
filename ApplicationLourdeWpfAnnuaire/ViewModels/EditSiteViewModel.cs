@@ -59,8 +59,6 @@ public class EditSiteViewModel : ViewModelBase
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Vous n'avez pas besoin de mettre à jour la liste ici.
-                    // La mise à jour de la liste dans la fenêtre principale est gérée là-bas.
                     MessageBox.Show("Le site a été bien modifié.");
                 }
                 else

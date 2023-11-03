@@ -61,6 +61,13 @@ namespace ApplicationLourdeWpfAnnuaire
             SiteManagementWindow.Show();
         }
 
+        private void ManageDepartementButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Affiche une fenêtre de gestion des Departements
+            var DepartementManagementWindow = new DepartementManagementWindow();
+            DepartementManagementWindow.Show();
+        }
+
         // Vérification sécurisée du nom d'utilisateur et du mot de passe dans la base de données
         private bool IsValidAdmin(string username, string password)
         {
