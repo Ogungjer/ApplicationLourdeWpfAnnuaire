@@ -38,7 +38,10 @@
                     VerticalAlignment="Top" Margin="10,10,0,10" 
                     Click="ManageDepartementButton_Click"  
                     Background="#FF007ACC" Foreground="White"/>
-
+            <Button Content="Manage Employe" HorizontalAlignment="Right" 
+                    VerticalAlignment="Top" Margin="10,10,0,10" 
+                    Click="ManageEmployeButton_Click"  
+                    Background="#FF007ACC" Foreground="White"/>
         </StackPanel>
     </Grid>
 </Window>

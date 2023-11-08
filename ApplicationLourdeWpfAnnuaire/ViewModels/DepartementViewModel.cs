@@ -107,6 +107,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     {
                         // Si l'ajout à l'API est réussi, ajoute également le departement à la collection
                         DepartementList.Add(newDepartement);
+                        ShowSuccessMessage("Le nouveau departement a été bien ajouté.");
                     }
                     else
                     {
@@ -136,7 +137,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     if (response.IsSuccessStatusCode)
                     {
                         DepartementList.Remove(departementToDelete);
-                        ShowSuccessMessage("Suppression du departement réussie.");
+                        ShowSuccessMessage("Le departement a été bien supprimé.");
                     }
                     else
                     {

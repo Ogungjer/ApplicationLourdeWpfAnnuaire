@@ -68,6 +68,13 @@ namespace ApplicationLourdeWpfAnnuaire
             DepartementManagementWindow.Show();
         }
 
+        private void ManageEmployeButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Affiche une fenêtre de gestion des employés
+            var EmployeManagementWindow = new EmployeManagementWindow();
+            EmployeManagementWindow.Show();
+        }
+
         // Vérification sécurisée du nom d'utilisateur et du mot de passe dans la base de données
         private bool IsValidAdmin(string username, string password)
         {
