@@ -59,17 +59,28 @@ public class EditSiteViewModel : ViewModelBase
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Le site a été bien modifié.");
+                    ShowSuccessMessage("Le Nom site a été bien modifié.");
                 }
                 else
                 {
-                    MessageBox.Show("Impossible de mettre à jour le site à l'API.");
+                    ShowErrorMessage("Impossible de mettre à jour le site à l'API.");
                 }
             }
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Une erreur s'est produite : " + ex.Message);
+            ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
         }
+    }
+
+
+    private void ShowErrorMessage(string message)
+    {
+        MessageBox.Show(message, "Erreur", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    private void ShowSuccessMessage(string message)
+    {
+        MessageBox.Show(message, "Succès", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

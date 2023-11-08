@@ -107,6 +107,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     {
                         // Si l'ajout à l'API est réussi, ajoute également le site à la collection
                         SiteList.Add(newSite);
+                        ShowSuccessMessage("Le nouveau site a été bien ajouté.");
                     }
                     else
                     {
@@ -136,7 +137,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     if (response.IsSuccessStatusCode)
                     {
                         SiteList.Remove(siteToDelete);
-                        ShowSuccessMessage("Suppression du site réussie.");
+                        ShowSuccessMessage("Le site a été bien supprimé.");
                     }
                     else
                     {
