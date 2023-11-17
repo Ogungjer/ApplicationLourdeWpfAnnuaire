@@ -13,6 +13,7 @@ using System.Windows.Controls;
 using ApplicationLourdeWpfAnnuaire.Commands;
 using System.Windows.Input;
 using ApplicationLourdeWpfAnnuaire.Views;
+using System.ComponentModel;
 
 namespace ApplicationLourdeWpfAnnuaire.ViewModels
 {
@@ -43,6 +44,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
 
         public ICommand AddDepartementCommand { get; set; }
 
+        public ICommand RefreshCommand { get; }
         public DepartementViewModel()
         {
             DepartementList = new ObservableCollection<Departement>();
@@ -50,6 +52,8 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             LoadDepartement();
 
             AddDepartementCommand = new RelayCommand(AddDepartement);
+
+            RefreshCommand = new RelayCommand(ExecuteRefreshCommand);
 
         }
 
@@ -155,6 +159,34 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             }
         }
 
+        private async Task ExecuteRefreshCommand()
+        {
+           
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string apiUrl = "https://localhost:7252/api/Departement";
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string result = await response.Content.ReadAsStringAsync();
+                        List<Departement> departements = JsonConvert.DeserializeObject<List<Departement>>(result);
+                        DepartementList = new ObservableCollection<Departement>(departements);
+                    }
+                    else
+                    {
+                        ShowErrorMessage("Impossible de récupérer les données de l'API.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
+                }
+            }
+
+        }
 
 
         private void ShowErrorMessage(string message)

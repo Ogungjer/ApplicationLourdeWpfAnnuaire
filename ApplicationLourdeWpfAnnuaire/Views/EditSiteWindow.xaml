@@ -21,7 +21,7 @@
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,23,0,0">
             <TextBlock Text="Edit Site Name" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" Margin="5" FontWeight="Bold"/>
             <TextBox x:Name="TextBoxSiteName" Grid.Row="1" Width="200" Margin="5" BorderBrush="#FF007ACC" Text="{Binding SiteName}"/>
-            <Button Grid.Row="2" Content="Save" Command="{Binding EditCommand}" Width="100" Margin="5" Background="#FF007ACC" Foreground="White"/>
+            <Button Grid.Row="2" Content="Save" Command="{Binding EditCommand}" Width="100" Margin="5" Background="Green" Style="{StaticResource RoundButtonStyle}" BorderBrush="#FF007ACC"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows;
 using ApplicationLourdeWpfAnnuaire.Models;
-
+using ApplicationLourdeWpfAnnuaire.Views;
 
 namespace ApplicationLourdeWpfAnnuaire.ViewModels
 {
@@ -127,19 +127,26 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                 OnPropertyChanged(nameof(NewEmployeDepartementID));
             }
         }
-        public ICommand AddEmployeCommand { get; set; }
-        
 
+        public ICommand AddEmployeCommand { get; set; }
+
+        public ICommand RefreshCommand { get; }
+ 
         public EmployeViewModel()
         {
 
             LoadDepartements();
+
             LoadSites();
 
             EmployeList = new ObservableCollection<Employe>();
+
             LoadEmploye();
-            
+
             AddEmployeCommand = new RelayCommand(AddEmploye);
+
+            RefreshCommand = new RelayCommand(ExecuteRefreshCommand);
+
 
         }
 
@@ -231,7 +238,6 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                 }
             }
         }
-
         private async Task AddEmploye()
         {
             try
@@ -284,6 +290,8 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             }
         }
 
+       
+
         public async Task DeleteEmploye(Employe employeToDelete)
         {
             try
@@ -312,6 +320,101 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
         }
 
 
+
+        public async void SearchEmploye()
+        {
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    string apiUrl = "https://localhost:7252/api/Employe";
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string result = await response.Content.ReadAsStringAsync();
+                        List<Employe> allEmployes = JsonConvert.DeserializeObject<List<Employe>>(result);
+
+                        // Filtre la liste en fonction des critères sélectionnés
+                        IEnumerable<Employe> filteredEmployes = allEmployes;
+
+                        if (NewEmployeSiteID > 0)
+                        {
+                            filteredEmployes = filteredEmployes.Where(employe => employe.SiteID == NewEmployeSiteID);
+                           
+                        }
+
+                        if (NewEmployeDepartementID > 0)
+                        {
+                            filteredEmployes = filteredEmployes.Where(employe => employe.DepartementID == NewEmployeDepartementID);
+                            NewEmployeDepartementID = 0;
+                        }
+
+                        if (!string.IsNullOrEmpty(NewEmployeNom))
+                        {
+                            string nomEmployeToLower = NewEmployeNom.ToLower();
+                            filteredEmployes = filteredEmployes.Where(employe => employe.Nom.ToLower().Contains(nomEmployeToLower) || employe.Prenom.ToLower().Contains(nomEmployeToLower));
+                            
+                        }
+
+                        // Mets à jour la collection EmployeList avec les résultats de la recherche
+                        EmployeList = new ObservableCollection<Employe>(filteredEmployes);
+                    }
+                    else
+                    {
+                        ShowErrorMessage("Impossible de récupérer les données de l'API.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
+            }
+        }
+
+
+        private async Task ExecuteRefreshCommand()
+        {
+            
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string apiUrlEmploye = "https://localhost:7252/api/Employe";
+                    string apiUrlDepartement = "https://localhost:7252/api/Departement";
+                    string apiUrlSite = "https://localhost:7252/api/Site";
+
+                    HttpResponseMessage responseEmploye = await client.GetAsync(apiUrlEmploye);
+                    HttpResponseMessage responseDepartement = await client.GetAsync(apiUrlDepartement);
+                    HttpResponseMessage responseSite = await client.GetAsync(apiUrlSite);
+
+                    if (responseEmploye.IsSuccessStatusCode && responseDepartement.IsSuccessStatusCode && responseSite.IsSuccessStatusCode)
+                    {
+                        string resultEmploye = await responseEmploye.Content.ReadAsStringAsync();
+                        string resultDepartement = await responseDepartement.Content.ReadAsStringAsync();
+                        string resultSite= await responseSite.Content.ReadAsStringAsync();
+
+                        List<Employe> employes = JsonConvert.DeserializeObject<List<Employe>>(resultEmploye);
+                        EmployeList = new ObservableCollection<Employe>(employes);
+
+                        List<Departement> departements = JsonConvert.DeserializeObject<List<Departement>>(resultDepartement);
+                        DepartementList = new ObservableCollection<Departement>(departements);
+
+                        List<Site> sites = JsonConvert.DeserializeObject<List<Site>>(resultSite);
+                        SiteList = new ObservableCollection<Site>(sites);
+                    }
+                    else
+                    {
+                        ShowErrorMessage("Impossible de récupérer les données de l'API.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
+                }
+            }
+
+        }
 
         private void ShowErrorMessage(string message)
         {
