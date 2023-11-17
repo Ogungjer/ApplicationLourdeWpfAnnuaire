@@ -1,8 +1,14 @@
-﻿using ApplicationLourdeWpfAnnuaire.Views;
+﻿using ApplicationLourdeWpfAnnuaire.Models;
+using ApplicationLourdeWpfAnnuaire.ViewModels;
+using ApplicationLourdeWpfAnnuaire.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,9 +28,12 @@ namespace ApplicationLourdeWpfAnnuaire
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new EmployeViewModel();
+
         }
 
         // Gestion du clic sur le bouton "Admin"
@@ -94,5 +103,26 @@ namespace ApplicationLourdeWpfAnnuaire
                 return count == 1;
             }
         }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Récupére l'instance de la ViewModel à partir du DataContext
+            EmployeViewModel viewModel = DataContext as EmployeViewModel;
+
+            // Vérifiez si la ViewModel est correctement initialisée
+            if (viewModel != null)
+            {
+                // Appele la méthode de recherche dans la ViewModel
+                viewModel.SearchEmploye();
+                MaDataGrid.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        //void navigateRefreshButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.Refresh();
+        //}
+
     }
 }

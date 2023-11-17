@@ -28,9 +28,6 @@ namespace ApplicationLourdeWpfAnnuaire.Views
             InitializeComponent();
             DataContext = new EmployeViewModel();
 
-            // Liaison de la liste d'employés au DataGrid
-            MaDataGrid.ItemsSource = (DataContext as EmployeViewModel).EmployeList;
-
         }
 
         private void AddEmployeWindowButton_Click(object sender, RoutedEventArgs e)

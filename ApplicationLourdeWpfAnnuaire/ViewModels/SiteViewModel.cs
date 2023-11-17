@@ -43,6 +43,8 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
 
         public ICommand AddSiteCommand { get; set; }
 
+        public ICommand RefreshCommand { get; }
+
         public SiteViewModel()
         {
             SiteList = new ObservableCollection<Site>(); 
@@ -50,7 +52,9 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             LoadSites();
 
             AddSiteCommand = new RelayCommand(AddSite);
-            
+
+            RefreshCommand = new RelayCommand(ExecuteRefreshCommand);
+
         }
 
         private async void LoadSites()
@@ -155,6 +159,34 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
             }
         }
 
+        private async Task ExecuteRefreshCommand()
+        {
+           
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    string apiUrl = "https://localhost:7252/api/Site";
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string result = await response.Content.ReadAsStringAsync();
+                        List<Site> sites = JsonConvert.DeserializeObject<List<Site>>(result);
+                        SiteList = new ObservableCollection<Site>(sites);
+                    }
+                    else
+                    {
+                        ShowErrorMessage("Impossible de récupérer les données de l'API.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ShowErrorMessage("Une erreur s'est produite : " + ex.Message);
+                }
+            }
+
+        }
 
 
         private void ShowErrorMessage(string message)

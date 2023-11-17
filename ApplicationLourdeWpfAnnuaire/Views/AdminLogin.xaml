@@ -14,7 +14,7 @@
                 <Label Content="Mot de passe :" FontWeight="Bold" Foreground="Black"/>
                 <PasswordBox Name="PasswordBox" BorderBrush="#FF007ACC"/>
                 <Button Content="Se connecter" Click="LoginButton_Click" Margin="0 10" Background="#FF007ACC" 
-                        Foreground="White" FontWeight="Bold" BorderBrush="#FF007ACC"/>
+                        Foreground="White" FontWeight="Bold" BorderBrush="#FF007ACC" Style="{StaticResource RoundButtonStyle}" Height="24" Width="110" HorizontalAlignment="Left"/>
             </StackPanel>
         </Grid>
     </Grid>
