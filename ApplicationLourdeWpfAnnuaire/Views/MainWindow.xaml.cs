@@ -119,10 +119,5 @@ namespace ApplicationLourdeWpfAnnuaire
             
         }
 
-        //void navigateRefreshButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.Refresh();
-        //}
-
     }
 }

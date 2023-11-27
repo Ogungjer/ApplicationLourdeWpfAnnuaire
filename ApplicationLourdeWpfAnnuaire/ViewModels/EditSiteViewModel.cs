@@ -59,7 +59,7 @@ public class EditSiteViewModel : ViewModelBase
 
                 if (response.IsSuccessStatusCode)
                 {
-                    ShowSuccessMessage("Le Nom site a été bien modifié.");
+                    ShowSuccessMessage("Le Nom du site a été bien modifié.");
                 }
                 else
                 {

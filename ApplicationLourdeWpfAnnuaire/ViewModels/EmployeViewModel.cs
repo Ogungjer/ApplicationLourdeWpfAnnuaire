@@ -52,7 +52,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
 
         //Propriété pour accéder au texte du TextBox
         private string _newEmployeNom;
-        public string NewEmployeNom
+        public string? NewEmployeNom
         {
             get { return _newEmployeNom; }
             set
@@ -347,7 +347,6 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                         if (NewEmployeDepartementID > 0)
                         {
                             filteredEmployes = filteredEmployes.Where(employe => employe.DepartementID == NewEmployeDepartementID);
-                            NewEmployeDepartementID = 0;
                         }
 
                         if (!string.IsNullOrEmpty(NewEmployeNom))
@@ -396,12 +395,16 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
 
                         List<Employe> employes = JsonConvert.DeserializeObject<List<Employe>>(resultEmploye);
                         EmployeList = new ObservableCollection<Employe>(employes);
+                        NewEmployeNom = null;
 
                         List<Departement> departements = JsonConvert.DeserializeObject<List<Departement>>(resultDepartement);
                         DepartementList = new ObservableCollection<Departement>(departements);
+                        NewEmployeDepartementID = 0;
 
                         List<Site> sites = JsonConvert.DeserializeObject<List<Site>>(resultSite);
                         SiteList = new ObservableCollection<Site>(sites);
+                        NewEmployeSiteID = 0;
+
                     }
                     else
                     {
