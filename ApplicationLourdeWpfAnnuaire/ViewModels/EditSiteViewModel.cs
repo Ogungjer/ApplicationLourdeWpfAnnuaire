@@ -63,7 +63,7 @@ public class EditSiteViewModel : ViewModelBase
                 }
                 else
                 {
-                    ShowErrorMessage("Impossible de mettre à jour le site à l'API.");
+                    ShowErrorMessage("Un ou plusieurs salariés sont déjà affectés à ce site.");
                 }
             }
         }
