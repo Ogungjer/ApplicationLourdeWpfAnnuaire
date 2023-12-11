@@ -63,7 +63,7 @@ public class EditDepartementWiewModel : ViewModelBase
                 }
                 else
                 {
-                    ShowErrorMessage("Impossible de mettre à jour le departement à l'API.");
+                    ShowErrorMessage("Un ou plusieurs salariés sont déjà affectés à ce département.");
                 }
             }
         }
