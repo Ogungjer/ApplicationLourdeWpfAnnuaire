@@ -115,7 +115,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     }
                     else
                     {
-                        ShowErrorMessage("Impossible d'ajouter le site à l'API.");
+                        ShowErrorMessage("Un ou plusieurs salariés sont déjà affectés à ce site.");
                     }
                 }
 
@@ -145,7 +145,7 @@ namespace ApplicationLourdeWpfAnnuaire.ViewModels
                     }
                     else
                     {
-                        ShowErrorMessage("Impossible de supprimer le site de l'API.");
+                        ShowErrorMessage("Un ou plusieurs salariés sont déjà affectés à ce site.");
                     }
                 }
             }
