@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationLourdeWpfAnnuaire.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,19 +11,20 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ApplicationLourdeWpfAnnuaire
+namespace ApplicationLourdeWpfAnnuaire.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Logique d'interaction pour AddEmployeWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddEmployeWindow : Window
     {
-        public MainWindow()
+        public AddEmployeWindow()
         {
             InitializeComponent();
+            DataContext = new EmployeViewModel();
         }
+
     }
 }

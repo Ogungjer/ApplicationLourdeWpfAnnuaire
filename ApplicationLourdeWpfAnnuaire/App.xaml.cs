@@ -13,5 +13,15 @@ namespace ApplicationLourdeWpfAnnuaire
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            // Crée la fenêtre principale (MainWindow)
+            MainWindow mainWindow = new MainWindow();
+
+            // Démarre l'application en affichant la fenêtre principale
+            mainWindow.Show();
+        }
     }
 }

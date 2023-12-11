@@ -1,0 +1,153 @@
+﻿<Window x:Class="ApplicationLourdeWpfAnnuaire.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationLourdeWpfAnnuaire"
+        mc:Ignorable="d"
+        Title="Annuaire OGROUP" Height="500" Width="900">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF007ACC"/>
+                <GradientStop Color="#FFEAECDD" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+
+                <!-- Interface pour le mode visiteur -->
+                <StackPanel Name="VisitorMode" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Visible" Margin="0,153,0,0">
+                    <TextBlock Text="Bienvenue sur l'annuaire de OGROUP" FontSize="30" TextAlignment="Center" FontWeight="Bold" />
+
+                    <!-- Refresh Page -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+                        <Button Content="Refresh Page" Width="113" Margin="17,5,5,5" Background="Black" Command="{Binding RefreshCommand}" Style="{StaticResource RoundButtonStyle}" Height="24"/>
+                    </StackPanel>
+
+                    <Button Content="Toggle Admin Mode" Margin="10,10,0,10" 
+                                    Click="AdminButton_Click" VerticalAlignment="Top"
+                                    HorizontalAlignment="Center" 
+                                    Style="{StaticResource RoundButtonStyle}" Height="25" Width="121" Background="#FFA56114" IsDefault="True"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Center">
+                        <!-- ComboBox pour le site -->
+                        <ComboBox x:Name="SiteComboBox" Width="150" Margin="10" 
+                                          DisplayMemberPath="Ville" 
+                                          SelectedValuePath="SiteID" 
+                                          ItemsSource="{Binding SiteList}" 
+                                          SelectedValue="{Binding NewEmployeSiteID}"/>
+
+
+
+                        <!-- ComboBox pour le département -->
+                        <ComboBox x:Name="DepartementComboBox" Width="150" Margin="10" 
+                                          DisplayMemberPath="NomDepartement" 
+                                          SelectedValuePath="DepartementID"
+                                          ItemsSource="{Binding DepartementList}" 
+                                          SelectedValue ="{Binding NewEmployeDepartementID}"/>
+
+                        <!-- TextBox pour le nom de l'employé -->
+                        <TextBox x:Name="NomEmployeTextBox" Width="150" Margin="10" Text="{Binding NewEmployeNom}" Background="White" />
+
+                        <!-- Bouton de recherche -->
+                        <Button Content="Rechercher" Margin="10" Click="SearchButton_Click" HorizontalAlignment="Center" Style="{StaticResource RoundButtonStyle}" Height="26" Width="83" Background="#FF007ACC"/>
+                    </StackPanel>
+
+
+                    <DataGrid x:Name="MaDataGrid"
+                                  Grid.Row="1"
+                                  Margin="10,0,10,10"
+                                  MaxHeight="450"
+                                  AutoGenerateColumns="False"
+                                  ItemsSource="{Binding EmployeList}"
+                                  BorderBrush="#FF007ACC"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  SelectedItem=""
+                                  CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeColumns="False" IsReadOnly="True"
+                                  Visibility="Collapsed">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="EmployeID"
+                                                    Header="ID"
+                                                    Binding="{Binding EmployeID}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="Nom"
+                                                    Header="Nom"
+                                                    Binding="{Binding Nom}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="Prenom"
+                                                    Header="Prenom"
+                                                    Binding="{Binding Prenom}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="TelephoneFixe"
+                                                    Header="TelephoneFixe"
+                                                    Binding="{Binding TelephoneFixe}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="TelephonePortable"
+                                                    Header="TelephonePortable"
+                                                    Binding="{Binding TelephonePortable}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="Email"
+                                                    Header="Email"
+                                                    Binding="{Binding Email}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="EmployeSite"
+                                                    Header="Site"
+                                                    Binding="{Binding EmployeSite}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn x:Name="EmployeDepartement"
+                                                    Header="Departement"
+                                                    Binding="{Binding EmployeDepartement}">
+                                <DataGridTextColumn.Width>
+                                    <DataGridLength>1*</DataGridLength>
+                                </DataGridTextColumn.Width>
+                            </DataGridTextColumn>
+                            <!-- Colonne Action -->
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>            
+        </ScrollViewer>
+
+        <!-- Interface pour le mode admin -->
+        <StackPanel Name="AdminMode" HorizontalAlignment="Center" VerticalAlignment="Top"  Visibility="Collapsed" Margin="0,128,0,0" Grid.RowSpan="2">
+            <TextBlock Text="Bienvenue sur le mode admin de l'annuaire OGROUP" FontWeight="Bold" FontSize="30" TextAlignment="Center"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+                <Button Content="Toggle visitor Mode" Click="VisitorButton_Click" Style="{StaticResource RoundButtonStyle}" Height="25" Width="117"/>
+                <Button Content="Manage Site" Click="ManageSiteButton_Click" Style="{StaticResource RoundButtonStyle}" Width="99"/>
+                <Button Content="Manage Departement" Click="ManageDepartementButton_Click" Style="{StaticResource RoundButtonStyle}" Height="25" Width="137"/>
+                <Button Content="Manage Employe" Click="ManageEmployeButton_Click" Style="{StaticResource RoundButtonStyle}" Height="25" Width="137"/>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+</Window>

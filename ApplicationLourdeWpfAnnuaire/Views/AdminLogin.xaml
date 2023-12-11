@@ -1,0 +1,21 @@
+﻿<Window x:Class="ApplicationLourdeWpfAnnuaire.Views.AdminLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ApplicationLourdeWpfAnnuaire.Views"
+        mc:Ignorable="d"
+        Title="AdminLogin" Height="350" Width="400">
+    <Grid>
+        <Grid>
+            <StackPanel Margin="20">
+                <Label Content="Nom d'utilisateur :" FontWeight="Bold" Foreground="Black"/>
+                <TextBox Name="UsernameTextBox" BorderBrush="#FF007ACC"/>
+                <Label Content="Mot de passe :" FontWeight="Bold" Foreground="Black"/>
+                <PasswordBox Name="PasswordBox" BorderBrush="#FF007ACC"/>
+                <Button Content="Se connecter" Click="LoginButton_Click" Margin="0 10" Background="#FF007ACC" 
+                        Foreground="White" FontWeight="Bold" BorderBrush="#FF007ACC" Style="{StaticResource RoundButtonStyle}" Height="24" Width="110" HorizontalAlignment="Left"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
